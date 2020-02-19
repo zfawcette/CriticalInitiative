@@ -1,0 +1,15 @@
+#mainNav{
+    margin: 0;
+    padding: 1em;
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    background: red;
+    text-decoration: none;
+}
+
+#navLink{
+    margin-left: 2em;
+    text-align: center;
+    text-decoration: none;
+}

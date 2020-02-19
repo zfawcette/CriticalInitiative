@@ -4,7 +4,7 @@ import './ForgotPassword.css';
 function ForgotPassword() {
   return (
     <div>
-          <h1>ForgotPassowrd</h1>
+          <h1>ForgotPassword</h1>
     </div>
   );
 }
