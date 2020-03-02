@@ -3,20 +3,17 @@ import './CreateAccount.css';
 
 function CreateAccount() {
   return (
-    <div>
-          <h1>CreateAccount</h1>
+      <div>
+          <br /> <br />
+          <h1>Create Account</h1>
+          <form method="post" className="FlexForm">
 
-          
-          Username:<input type="text" id="Username" />
-          <br /><br />
-          Email Address:<input type="text" id="EmailAddress" />
-          <br /><br />
-          Password:<input type="password" id="Password" />
-          <br /><br />
-          Confirm Password:<input type="password" id="ConfirmPassword" />
-          <br /><br />
-          <button onClick={event => window.location.href = '/'}> Submit</button>
-              
+              <input type="text" autoFocus="autofocus" placeholder="Username" className="FlexItem"></input>
+          <input type="text" placeholder="Email Address" className="FlexItem"></input>
+          <input type="text" placeholder="Password" className="FlexItem"></input>
+          <input type="text" placeholder="Confirm Password" className="FlexItem"></input>
+              <input style={{ fontSize: 1.5 + "em", padding: .1 + "em" }} type="submit" value="Submit" className="FlexItem"></input>
+          </form>  
     </div>
   );
 }
