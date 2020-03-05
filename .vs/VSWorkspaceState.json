@@ -3,9 +3,11 @@
     "",
     "\\src",
     "\\src\\components",
-    "\\src\\components\\Characters",
-    "\\src\\components\\LogIn"
+    "\\src\\components\\CreateAccount",
+    "\\src\\components\\LogIn",
+    "\\src\\components\\PageComponents",
+    "\\src\\components\\Room"
   ],
-  "SelectedNode": "\\src\\App.css",
+  "SelectedNode": "\\src\\components\\PageComponents\\RoomSidebar.js",
   "PreviewInSolutionExplorer": false
 }
