@@ -3,11 +3,8 @@
     "",
     "\\src",
     "\\src\\components",
-    "\\src\\components\\CreateAccount",
-    "\\src\\components\\LogIn",
-    "\\src\\components\\PageComponents",
-    "\\src\\components\\Room"
+    "\\src\\components\\CreateAccount"
   ],
-  "SelectedNode": "\\src\\components\\PageComponents\\RoomSidebar.js",
+  "SelectedNode": "\\src\\components\\CreateAccount\\CreateAccount.js",
   "PreviewInSolutionExplorer": false
 }
