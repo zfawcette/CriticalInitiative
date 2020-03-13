@@ -6,8 +6,10 @@
     "\\src\\components",
     "\\src\\components\\CreateAccount",
     "\\src\\components\\ForgotPassword",
+    "\\src\\components\\Home",
+    "\\src\\components\\LogIn",
     "\\src\\components\\Navbar"
   ],
-  "SelectedNode": "\\src\\components\\CreateAccount\\CreateAccount.js",
+  "SelectedNode": "\\src\\components\\Home\\Home.js",
   "PreviewInSolutionExplorer": false
 }
