@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -7,6 +8,9 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var createAccountRouter = require('./routes/createAccount');
+var forgotPasswordRouter = require('./routes/forgotPassword');
+
+const nodemailer = require('nodemailer');
 
 var app = express();
 
@@ -26,6 +30,13 @@ app.use(function (req, res, next) {
     next();
 })
 
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD
+    }
+});
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -36,6 +47,27 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/createAccount', createAccountRouter);
+app.use('/forgotPassword', forgotPasswordRouter);
+
+app.post('/email', (req, res) => {
+
+    console.log(req.body[0].email);
+
+    let mailOptions = {
+        from: process.env.EMAIL,
+        to: req.body[0].email,
+        subject: 'Critical Initiative - Your Password',
+        text: 'Your password is ' + req.body[0].password
+    }
+
+    transporter.sendMail(mailOptions, function (err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('sent');
+        }
+    })
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

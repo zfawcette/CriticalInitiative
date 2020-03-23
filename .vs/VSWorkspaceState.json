@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\components",
-    "\\src\\components\\CreateAccount"
+    "\\src\\components"
   ],
-  "SelectedNode": "\\src\\components\\CreateAccount\\CreateAccount.js",
+  "SelectedNode": "\\src\\components\\Characters",
   "PreviewInSolutionExplorer": false
 }
