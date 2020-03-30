@@ -1,0 +1,17 @@
+div{
+    margin-left: auto;
+    margin-right: auto;
+}
+button{
+    margin: 10px 1%;
+    cursor: pointer;
+    padding: 10em;
+}
+
+button:hover{
+    background-color: red;
+    color: white;
+}
+.header{
+     height: 100px;
+ }
