@@ -33,8 +33,8 @@ app.use(function (req, res, next) {
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD
+        user: "CriticalInitiativeSpring2020@gmail.com",
+        pass: "Spring2020"
     }
 });
 
@@ -54,7 +54,7 @@ app.post('/email', (req, res) => {
     console.log(req.body[0].email);
 
     let mailOptions = {
-        from: process.env.EMAIL,
+        from: "CriticalInitiativeSpring2020@gmail.com",
         to: req.body[0].email,
         subject: 'Critical Initiative - Your Password',
         text: 'Your password is ' + req.body[0].password
