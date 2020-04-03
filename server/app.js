@@ -86,3 +86,11 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+var http = require('http');
+
+var server = http.createServer(app);
+
+server.listen(3306, function () {
+    console.log("The server has started! It is running on PORT: 3306");
+});

@@ -1,9 +1,15 @@
 {
   "ExpandedNodes": [
     "",
+    "\\server",
     "\\src",
-    "\\src\\components"
+    "\\src\\components",
+    "\\src\\components\\CreateAccount",
+    "\\src\\components\\Home",
+    "\\src\\components\\LogIn",
+    "\\src\\components\\PageComponents",
+    "\\src\\components\\Room"
   ],
-  "SelectedNode": "\\src\\components\\Characters",
+  "SelectedNode": "\\src\\components\\CreateAccount\\CreateAccount.js",
   "PreviewInSolutionExplorer": false
 }
