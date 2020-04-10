@@ -9,8 +9,11 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var createAccountRouter = require('./routes/createAccount');
 var forgotPasswordRouter = require('./routes/forgotPassword');
+var roomRouter = require('./routes/room');
 
 const nodemailer = require('nodemailer');
+
+const PORT = process.env.PORT || 3306
 
 var app = express();
 
@@ -48,6 +51,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/createAccount', createAccountRouter);
 app.use('/forgotPassword', forgotPasswordRouter);
+app.use('/room', roomRouter);
 
 app.post('/email', (req, res) => {
 
@@ -87,10 +91,17 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-var http = require('http');
+const http = require('http').Server(app);
 
-var server = http.createServer(app);
+const io = require('socket.io')(http);
 
-server.listen(3306, function () {
-    console.log("The server has started! It is running on PORT: 3306");
+io.on('connection', function (socket) {
+    console.log("a user has connected");
+    socket.on('playerEntered', function (data) {
+        io.emit("new-remote-operations", data);
+    });
+});
+
+http.listen(PORT, function () {
+    console.log("The server has started! It is running on PORT: " + PORT);
 });
