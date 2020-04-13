@@ -91,17 +91,18 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-const http = require('http').Server(app);
+const http = require('http');
+const server = http.createServer(app);
+const socketio = require('socket.io');
+const io = socketio(server);
 
-const io = require('socket.io')(http);
-
-io.on('connection', function (socket) {
+io.on('connection', (socket) => {
     console.log("a user has connected");
-    socket.on('playerEntered', function (data) {
-        io.emit("new-remote-operations", data);
+    socket.on('disconnect', () => {
+        console.log("a user has disconnected");
     });
 });
 
-http.listen(PORT, function () {
+server.listen(PORT, function () {
     console.log("The server has started! It is running on PORT: " + PORT);
 });

@@ -2,15 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\server",
-    "\\server\\routes",
-    "\\src\\components",
-    "\\src\\components\\CreateAccount",
-    "\\src\\components\\Home",
-    "\\src\\components\\JoinRoom",
-    "\\src\\components\\LogIn",
-    "\\src\\components\\PageComponents",
-    "\\src\\components\\Room"
+    "\\src",
+    "\\src\\components"
   ],
-  "SelectedNode": "\\server\\routes\\createAccount.js",
+  "SelectedNode": "\\src\\components\\JoinRoom",
   "PreviewInSolutionExplorer": false
 }
