@@ -11,6 +11,29 @@ var createAccountRouter = require('./routes/createAccount');
 var forgotPasswordRouter = require('./routes/forgotPassword');
 var roomRouter = require('./routes/room');
 
+//const { addUser, removeUser, getUser, getUsersInRoom } = require('./userFunctions.js');
+const users = [];
+
+const addUser = ({ userId, roomId, hostFlag }) => {
+    const user = { userId, roomId, hostFlag };
+    users.push(user);
+    console.log(users);
+    return { user };
+}
+
+const removeUser = (userId) => {
+    const index = users.findIndex((user) => user.userId === userId);
+
+    if (index !== -1) {
+        return users.splice(index, 1)[0];
+    }
+}
+
+const getUser = (userId) => users.find((user) => user.id === userId);
+
+const getUsersInRoom = (roomId) => users.filter((user) => user.roomId === roomId);
+
+
 const nodemailer = require('nodemailer');
 
 const PORT = process.env.PORT || 3306
@@ -97,9 +120,25 @@ const socketio = require('socket.io');
 const io = socketio(server);
 
 io.on('connection', (socket) => {
-    console.log("a user has connected");
+    socket.on('join', ({ roomId, hostFlag }, callback) => {
+        const { error, user } = addUser({ userId: socket.id, roomId, hostFlag });
+
+        if (error) return callback(error);
+
+        socket.emit('message', { user: 'admin', text: `${user.userId}, welcome to the room.` });
+        socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.userId}, has joined` });
+
+        socket.join(user.roomId);
+        callback();
+    });
+
     socket.on('disconnect', () => {
         console.log("a user has disconnected");
+        const user = removeUser(socket.id);
+        console.log(`${user.userId} has disconnected`);
+        if (user) {
+            io.to(user.roomId).emit('message', { user: 'admin', text: `${user.userId} has left the room` });
+        }
     });
 });
 

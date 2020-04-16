@@ -9,7 +9,7 @@ function RoomCharacterTemplate() {
                     <h3>NAME</h3>
                     <h3>CLASS LEVEL</h3>
                 </div>
-                <h3>INITIATIVE</h3>
+                <h3>Initiative</h3>
             </div >
         </div>
     );

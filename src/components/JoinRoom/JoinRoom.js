@@ -61,7 +61,7 @@ class JoinRoom extends React.Component {
                         return response.json();
                     }).then(function (data) {
                         console.log("roomID added");
-                        }).then(window.location.href = "http://localhost:3000/room?roomId=" + data.roomId).catch(function (err) {
+                        }).then(window.location.href = "http://localhost:3000/room?roomId=" + data.roomId +"&hostFlag=1").catch(function (err) {
                         console.log(err);
                     });
                 } else {
@@ -85,7 +85,7 @@ class JoinRoom extends React.Component {
 
                 <input name="roomId"onChange={this.logChange} placeholder="ROOM ID" type='text'/>
 
-                <Link onClick={event => (this.state.roomId == "") ? event.preventDefault() & alert("Please put in the room token!") : null} to={`/room?roomId=${this.state.roomId}`}>
+                <Link onClick={event => (this.state.roomId == "") ? event.preventDefault() & alert("Please put in the room token!") : null} to={`/room?roomId=${this.state.roomId}&hostFlag=0`}>
                     <button>Join Room</button>
                 </Link>
             </div>

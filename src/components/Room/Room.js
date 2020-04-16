@@ -9,14 +9,21 @@ let socket;
 
 const Room = ({ location }) => {
     const [roomId, setRoom] = useState('');
+    const [hostFlag, setHostFlag] = useState('');
+    const [messages, setMessages] = useState([]);
     const ENDPOINT = 'localhost:3306';
 
     useEffect(() => {
-        const { roomId } = queryString.parse(location.search);
+        const { roomId, hostFlag } = queryString.parse(location.search);
 
         socket = io(ENDPOINT);
 
         setRoom(roomId);
+        setHostFlag(hostFlag);
+
+        socket.emit('join', { roomId, hostFlag }, (error, user) => {
+
+        });
 
         return () => {
             socket.emit('disconnect');
@@ -25,16 +32,31 @@ const Room = ({ location }) => {
         }
     }, [ENDPOINT, location.search]);
 
-    return (<div style={{ display: "flex", flexDirection: "row" }}>
-        <div className="main">
-            <h1>Main</h1>
-            <h2>Room id</h2>
-            <CharacterTemplate />
-            <CharacterTemplate />
-            <CharacterTemplate />
+    useEffect(() => {
+
+        socket.on('message', (message) => {
+            setMessages([...messages, message]);
+        });
+
+    }, [messages]);
+    
+    console.log(messages);
+
+    return (
+        <div style={{ display: "flex", flexDirection: "row" }}>
+            <div className="main">
+                <h2>Room id {roomId}</h2>
+                <div className="CharacterDiv" id="CharacterDiv">
+                    <CharacterTemplate/>
+                </div>
+                <div className="ButtonDiv">
+                    <button>Add Character</button>
+                    <button>Next Turn</button>
+                </div>  
+            </div>
+            <RoomSidebar />
         </div>
-        <RoomSidebar />
-    </div>)
+    )
 }
 
 export default Room;
