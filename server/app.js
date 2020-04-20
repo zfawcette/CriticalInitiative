@@ -9,8 +9,34 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var createAccountRouter = require('./routes/createAccount');
 var forgotPasswordRouter = require('./routes/forgotPassword');
+var roomRouter = require('./routes/room');
+
+//const { addUser, removeUser, getUser, getUsersInRoom } = require('./userFunctions.js');
+const users = [];
+
+const addUser = ({ userId, roomId, hostFlag }) => {
+    const user = { userId, roomId, hostFlag };
+    users.push(user);
+    console.log(users);
+    return { user };
+}
+
+const removeUser = (userId) => {
+    const index = users.findIndex((user) => user.userId === userId);
+
+    if (index !== -1) {
+        return users.splice(index, 1)[0];
+    }
+}
+
+const getUser = (userId) => users.find((user) => user.id === userId);
+
+const getUsersInRoom = (roomId) => users.filter((user) => user.roomId === roomId);
+
 
 const nodemailer = require('nodemailer');
+
+const PORT = process.env.PORT || 3306
 
 var app = express();
 
@@ -48,6 +74,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/createAccount', createAccountRouter);
 app.use('/forgotPassword', forgotPasswordRouter);
+app.use('/room', roomRouter);
 
 app.post('/email', (req, res) => {
 
@@ -87,10 +114,34 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-var http = require('http');
+const http = require('http');
+const server = http.createServer(app);
+const socketio = require('socket.io');
+const io = socketio(server);
 
-var server = http.createServer(app);
+io.on('connection', (socket) => {
+    socket.on('join', ({ roomId, hostFlag }, callback) => {
+        const { error, user } = addUser({ userId: socket.id, roomId, hostFlag });
 
-server.listen(3306, function () {
-    console.log("The server has started! It is running on PORT: 3306");
+        if (error) return callback(error);
+
+        socket.emit('message', { user: 'admin', text: `${user.userId}, welcome to the room.` });
+        socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.userId}, has joined` });
+
+        socket.join(user.roomId);
+        callback();
+    });
+
+    socket.on('disconnect', () => {
+        console.log("a user has disconnected");
+        const user = removeUser(socket.id);
+        console.log(`${user.userId} has disconnected`);
+        if (user) {
+            io.to(user.roomId).emit('message', { user: 'admin', text: `${user.userId} has left the room` });
+        }
+    });
+});
+
+server.listen(PORT, function () {
+    console.log("The server has started! It is running on PORT: " + PORT);
 });

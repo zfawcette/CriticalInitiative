@@ -4,12 +4,10 @@
     "\\server",
     "\\src",
     "\\src\\components",
-    "\\src\\components\\CreateAccount",
-    "\\src\\components\\Home",
-    "\\src\\components\\LogIn",
+    "\\src\\components\\Navbar",
     "\\src\\components\\PageComponents",
     "\\src\\components\\Room"
   ],
-  "SelectedNode": "\\src\\components\\CreateAccount\\CreateAccount.js",
+  "SelectedNode": "\\src\\components\\PageComponents\\RoomCharacterTemplate.js",
   "PreviewInSolutionExplorer": false
 }

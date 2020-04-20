@@ -1,4 +1,5 @@
 .main{
+    margin-top: 2.5em;
     width: 75%;
     height: 100%;
 }
@@ -6,9 +7,11 @@
 .sidebar{
     position: fixed;
     right: 0;
+    top: 53px;
     padding-left: 5em;
     padding-right: 5em;
     background-color: lightgrey;
+    height: 100%;
 }
 
 .characterTemplate{
