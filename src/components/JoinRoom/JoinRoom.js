@@ -15,6 +15,51 @@ class JoinRoom extends React.Component {
             roomId: ""
         }
         this.generateRoom = this.generateRoom.bind(this)
+        this.joinRoomButton = this.joinRoomButton.bind(this)
+    }
+
+    joinRoomButton() {
+
+        if (this.state.roomId == "") {
+            alert("Must put in the room ID to join a room");
+            return;
+        }
+
+        var data = {
+            roomId: this.state.roomId
+        }
+
+        let promise = new Promise(function (resolve, reject) {
+            var p = fetch('/room/checkRoomId', {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).then(function (response) {
+                if (response.status >= 400) {
+                    throw new Error("Bad Response from Server");
+                }
+                return response.json();
+            }).then(function (data) {
+                if (data == "") {
+                    return false;
+                } else {
+                    return true;
+                }
+            }).catch(function (err) {
+                console.log(err)
+            });
+            setTimeout(() => resolve(p), 1000);
+        });
+
+        promise.then(
+            function (result) {
+                if (result) {
+                    window.location.href = "http://localhost:3000/room?roomId=" + data.roomId + "&hostFlag=0";
+                } else {
+                    alert("No such room exists.");
+                }
+            }
+        );
     }
 
     generateRoom() {
@@ -78,16 +123,13 @@ class JoinRoom extends React.Component {
 
     render() {
         return (
-            <div>
-                <button onClick={this.generateRoom}>Host Room</button>
-
-                <h3>OR</h3>
-
-                <input name="roomId"onChange={this.logChange} placeholder="ROOM ID" type='text'/>
-
-                <Link onClick={event => (this.state.roomId == "") ? event.preventDefault() & alert("Please put in the room token!") : null} to={`/room?roomId=${this.state.roomId}&hostFlag=0`}>
-                    <button>Join Room</button>
-                </Link>
+            <div className="FlexDiv">
+                <div className="innerFlexDiv">
+                    <button onClick={this.generateRoom}>Host Room</button>
+                    <h3>OR</h3>
+                    <input name="roomId"onChange={this.logChange} placeholder="ROOM ID" type='text'/>
+                    <button onClick={this.joinRoomButton}>Join Room</button>
+                </div>
             </div>
         );
     }

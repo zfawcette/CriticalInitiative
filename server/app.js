@@ -133,11 +133,12 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        console.log("a user has disconnected");
         const user = removeUser(socket.id);
         console.log(`${user.userId} has disconnected`);
-        if (user) {
+        if (user && user.hostFlag == 0) {
             io.to(user.roomId).emit('message', { user: 'admin', text: `${user.userId} has left the room` });
+        } else if (user && user.hostFlag == 1) {
+            io.to(user.roomId).emit('completeDisconnect');
         }
     });
 });

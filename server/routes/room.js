@@ -16,4 +16,11 @@ router.post('/addRoomId', function (req, res, next) {
     })
 });
 
+router.post('/removeRoomId', function (req, res, next) {
+    res.locals.connection.query("DELETE FROM rooms WHERE room_id ='" + req.body.roomId + "'", function (error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+    })
+});
+
 module.exports = router;
