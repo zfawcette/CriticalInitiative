@@ -1,0 +1,31 @@
+.FlexDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    height: 40%;
+    padding: 1em;
+    background-color: lightgrey;
+    margin: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.FlexDiv button{
+    width: 90%;
+    padding: 1em;
+}
+
+.FlexDiv input{
+    width: 90%;
+    padding: .5em;
+    text-align: center;
+    font-size: 1em;
+}
+
+.innerFlexDiv{
+    margin-top: 4em;
+}

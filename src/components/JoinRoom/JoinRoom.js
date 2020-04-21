@@ -20,6 +20,11 @@ class JoinRoom extends React.Component {
 
     joinRoomButton() {
 
+        if (this.state.roomId == "") {
+            alert("Must put in the room ID to join a room");
+            return;
+        }
+
         var data = {
             roomId: this.state.roomId
         }
@@ -118,14 +123,13 @@ class JoinRoom extends React.Component {
 
     render() {
         return (
-            <div>
-                <button onClick={this.generateRoom}>Host Room</button>
-
-                <h3>OR</h3>
-
-                <input name="roomId"onChange={this.logChange} placeholder="ROOM ID" type='text'/>
-
-                <button onClick={this.joinRoomButton}>Join Room</button>
+            <div className="FlexDiv">
+                <div className="innerFlexDiv">
+                    <button onClick={this.generateRoom}>Host Room</button>
+                    <h3>OR</h3>
+                    <input name="roomId"onChange={this.logChange} placeholder="ROOM ID" type='text'/>
+                    <button onClick={this.joinRoomButton}>Join Room</button>
+                </div>
             </div>
         );
     }
