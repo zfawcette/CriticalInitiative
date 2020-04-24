@@ -4,8 +4,12 @@
     "\\server",
     "\\src",
     "\\src\\components",
-    "\\src\\components\\JoinRoom"
+    "\\src\\components\\CreateAccount",
+    "\\src\\components\\ForgotPassword",
+    "\\src\\components\\JoinRoom",
+    "\\src\\components\\PageComponents",
+    "\\src\\components\\Room"
   ],
-  "SelectedNode": "\\src\\components\\JoinRoom\\JoinRoom.js",
+  "SelectedNode": "\\src\\components\\PageComponents\\RoomCharacterTemplate.js",
   "PreviewInSolutionExplorer": false
 }
