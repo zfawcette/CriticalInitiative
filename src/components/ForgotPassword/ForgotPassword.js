@@ -14,7 +14,7 @@ class ForgotPassword extends Component{
     handleSubmit(event) {
         event.preventDefault();
 
-        if (this.state.input == "") {
+        if (this.state.input === "") {
             alert("All fields must be filled");
             return;
         }
@@ -44,7 +44,7 @@ class ForgotPassword extends Component{
 
         promise.then(
             function (result) {
-                if (result != "") {
+                if (result !== "") {
                     fetch('/email', {
                         method: "POST",
                         headers: { 'Content-Type': 'application/json' },

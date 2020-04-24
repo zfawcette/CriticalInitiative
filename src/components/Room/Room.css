@@ -22,3 +22,61 @@
     background-color: lightgrey;
     width: 50%;
 }
+
+.leaveRoomDiv{
+    padding: 1em;
+    margin: 0;
+    position: fixed;
+    top: 4em;
+}
+
+.addCharacterButton{
+    margin: 0;
+    padding: 1em;
+    position: fixed;
+    top: 4em;
+    right: 24em;
+}
+
+.nextTurnButton {
+    margin: 0;
+    padding: 1em;
+    position: fixed;
+    bottom: 0em;
+    right: 24em;
+}
+
+.addCharacterPopup{
+    width: 40%;
+    height: 40%;
+    background-color: grey;
+    z-index: 1;
+    position: fixed;
+    top: 10em;
+    left: 0;
+    right: 0;
+    display: none;
+}
+
+.exitButton{
+    margin: 0;
+    padding: 1em;
+    position: absolute;
+    top: 0em;
+    right: 0em;
+}
+
+.addCharacterContainer{
+    width: 60%;
+    height: 60%;
+    overflow: hidden;
+    overflow-y: scroll;
+    background-color: white;
+}
+
+.addCharacterContainer button{
+    margin: 0;
+    padding: 1em;
+    display: block;
+        width: 100%;
+}

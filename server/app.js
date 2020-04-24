@@ -11,14 +11,39 @@ var createAccountRouter = require('./routes/createAccount');
 var forgotPasswordRouter = require('./routes/forgotPassword');
 var roomRouter = require('./routes/room');
 
-//const { addUser, removeUser, getUser, getUsersInRoom } = require('./userFunctions.js');
+
+
+const characters = [];
 const users = [];
+
+const addCharacter = ({ userId, roomId, characterId }) => {
+    const newCharacter = { userId, roomId, characterId };
+    characters.push(newCharacter);
+    console.log(newCharacter);
+    return { newCharacter };
+}
 
 const addUser = ({ userId, roomId, hostFlag }) => {
     const user = { userId, roomId, hostFlag };
     users.push(user);
     console.log(users);
     return { user };
+}
+
+const removeCharacter = (userId) => {
+    const index = characters.findIndex((character) => characters.userId === userId);
+
+    if (index !== -1) {
+        return characters.splice(index, 1)[0];
+    }
+}
+
+const removeAllCharacters = (roomId) => {
+    const chars = characters.filter((character) => characters.roomId === roomId);
+
+    for (var i = 0; i < chars.length; i++) {
+        removeCharacter(chars[i]);
+    }
 }
 
 const removeUser = (userId) => {
@@ -29,7 +54,20 @@ const removeUser = (userId) => {
     }
 }
 
-const getUser = (userId) => users.find((user) => user.id === userId);
+const getCharacter = (userId) => characters.find((character) => character.userId === userId);
+
+const getAllCharactersInRoom = (roomId) => {
+
+    console.log("GETTING ALL CHARACTERS");
+    var CharactersToSend = characters.filter((character) => character.roomId === roomId);
+    console.log(CharactersToSend);
+    return CharactersToSend;
+
+}
+
+const getUser = (userId) => {
+    return users.find((user) => user.userId === userId);
+};
 
 const getUsersInRoom = (roomId) => users.filter((user) => user.roomId === roomId);
 
@@ -122,8 +160,15 @@ const io = socketio(server);
 io.on('connection', (socket) => {
     socket.on('join', ({ roomId, hostFlag }, callback) => {
         const { error, user } = addUser({ userId: socket.id, roomId, hostFlag });
+        const CharactersToSend = getAllCharactersInRoom(user.roomId);
+
+        if (user) {
+            console.log("user exists " + user.userId);
+        }
 
         if (error) return callback(error);
+
+        socket.emit('getCharactersOnJoin', { charactersToAdd: CharactersToSend });
 
         socket.emit('message', { user: 'admin', text: `${user.userId}, welcome to the room.` });
         socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.userId}, has joined` });
@@ -132,13 +177,31 @@ io.on('connection', (socket) => {
         callback();
     });
 
+    socket.on('newCharacter', ({ newCharacter }) => {
+        const user = getUser(socket.id);
+        if (user) {
+            const { error, character } = addCharacter({ userId: user.userId, roomId: user.roomId, characterId: newCharacter });
+
+            if (error) return callback(error);
+
+            socket.emit('character', { characterToAdd: newCharacter });
+            socket.broadcast.to(user.roomId).emit('character', { characterToAdd: newCharacter });
+        } else {
+            console.log("user not found");
+        }
+    });
+
     socket.on('disconnect', () => {
         const user = removeUser(socket.id);
         console.log(`${user.userId} has disconnected`);
         if (user && user.hostFlag == 0) {
-            io.to(user.roomId).emit('message', { user: 'admin', text: `${user.userId} has left the room` });
+            const character = getCharacter(user.id);
+            if (character) {
+                io.to(user.roomId).emit('removeCharacter', { user: user.userId });
+            } 
         } else if (user && user.hostFlag == 1) {
             io.to(user.roomId).emit('completeDisconnect');
+            removeAllCharacters(user.roomId);
         }
     });
 });
