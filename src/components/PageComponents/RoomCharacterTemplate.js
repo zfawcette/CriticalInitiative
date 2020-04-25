@@ -5,11 +5,11 @@ function RoomCharacterTemplate() {
         <div>
             <div className="characterTemplate">
                 <img src="https://via.placeholder.com/100x100"></img>
-                <div style={{display: "flex", flexDirection: "column", marginLeft: 1 + "em", marginRight: 1 + "em"}}>
+                <div style={{display: "flex", flexDirection: "column", marginRight: 1 + "em"}}>
                     <h3>NAME</h3>
                     <h3>CLASS LEVEL</h3>
                 </div>
-                <h3>INITIATIVE</h3>
+                <h3>Initiative</h3>
             </div >
         </div>
     );
