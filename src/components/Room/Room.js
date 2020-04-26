@@ -72,6 +72,9 @@ const Room = ({ location }) => {
                 console.log(result[0].name);
                 if (result) {
                     socket.emit('newCharacter', { newCharacter: result[0] });
+                    //adding lines to clear out the inputed data after adding character
+                    document.getElementById("characterNameField").value = "";
+                    document.getElementById("characterClassField").value = "";
                     exitCharacterPopUp();
                     if (hostFlag == 0) {
                         document.getElementById("AddCharacterButton").style.display = "none";
@@ -127,19 +130,46 @@ const Room = ({ location }) => {
 
     const updateCharactersDiv = () => {
         var s = "";
+        if (userCharacters!=null ) {
+           // userCharacters.sort((a.userCharacters.characterId.initiative,b.userCharacters.characterId.initiative) => b - a);
+            //userCharacters.sort((a, b) => a.characterId.initiative >= b.characterId.initiative ? -1 : 1);
+            //userCharacters.sort((a, b) => a.characterId.initiative.localeCompare(b.characterid.initiative));
+            //
+            var usersinit = [];
+            var usersinitindex = [];
+            //alert(userCharacters.length);
+            for (var i = 0; i < userCharacters.length; i++) {
+                if (userCharacters[i].characterToAdd != null) {
+                    usersinit.push(userCharacters[i].characterToAdd.initiative);
+                    usersinitindex.push(i);
+                }
+                else {
+                    usersinit.push(userCharacters[i].characterId.initiative);
+                    usersinitindex.push(i);
+                }
+            }
+            usersinitindex.sort((a, b) => usersinit[b] - usersinit[a]);
+            usersinit.sort((a, b) => b - a);
+
+            //alert(usersinit); // the init order
+            //alert(usersinitindex); // the order that they should be printed out in
+        
+        }
+        //for (var i = 0; i < userCharacters.length; i++) {
         for (var i = 0; i < userCharacters.length; i++) {
+            var index = usersinitindex[i]; //swapped the below i's with index
             s += "<div class='characterTemplate'>";
             s += "<img src='https://via.placeholder.com/100x100'></img>";
             s += "<div style={{display: 'flex', flex-direction: 'column'}}>";
-            if (userCharacters[i].characterToAdd) {
-                s += "<h3>" + userCharacters[i].characterToAdd.name + "</h3>";
-                s += "<h3>" + userCharacters[i].characterToAdd.class + " " + userCharacters[i].characterToAdd.level + "</h3>";
-                s += "</div><h3>" + userCharacters[i].characterToAdd.initiative + "</h3></div></div>";
+            if (userCharacters[index].characterToAdd) {
+                s += "<h3>" + userCharacters[index].characterToAdd.name + "</h3>";
+                s += "<h3>" + userCharacters[index].characterToAdd.class + " " + userCharacters[index].characterToAdd.level + "</h3>";
+                s += "</div><h3> init " + userCharacters[index].characterToAdd.initiative + "</h3></div></div>";
             } else {
-                console.log(userCharacters[i].characterId);
-                s += "<h3>" + userCharacters[i].characterId.name + "</h3>";
-                s += "<h3>" + userCharacters[i].characterId.class + " " + userCharacters[i].characterId.level + "</h3>";
-                s += "</div><h3>" + userCharacters[i].characterId.initiative + "</h3></div></div>";
+                console.log(userCharacters[index].characterId);
+                s += "<h3>" + userCharacters[index].characterId.name + "</h3>";
+                s += "<h3>" + userCharacters[index].characterId.class + " " + userCharacters[index].characterId.level + "</h3>";
+                s += "</div><h3> init " + userCharacters[index].characterId.initiative + "</h3></div></div>";
             }
             
         }
