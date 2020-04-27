@@ -197,7 +197,7 @@ io.on('connection', (socket) => {
         const user = removeUser(socket.id);
         console.log(`${user.userId} has disconnected`);
         if (user && user.hostFlag == 0) {
-            const character = getCharacter(user.id);
+            const character = removeCharacter(user.id);
             if (character) {
                 io.to(user.roomId).emit('removeCharacter', { user: user.userId });
             } 

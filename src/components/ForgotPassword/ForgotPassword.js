@@ -1,6 +1,7 @@
 import React from 'react';
 import './ForgotPassword.css';
 import { Component } from 'react';
+import Navbar from '../Navbar/Navbar.js';
 
 class ForgotPassword extends Component{
     constructor(props) {
@@ -74,6 +75,7 @@ class ForgotPassword extends Component{
     render() {
         return (
             <div>
+                <Navbar />
                 <form onSubmit={this.handleSubmit} method="post" className="FlexForm">
                     <p>Enter your username or email, and we will send you a link to reset your password</p><br/>
                     <input type="text" onChange={this.logChange} autoFocus="autofocus" placeholder="Username/Email" className="FlexItem" name="input"></input>

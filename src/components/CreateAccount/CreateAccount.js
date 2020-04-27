@@ -1,5 +1,6 @@
 import React from 'react';
 import './CreateAccount.css';
+import Navbar from '../Navbar/Navbar.js';
 
 class CreateAccount extends React.Component {
     constructor(props) {
@@ -89,7 +90,9 @@ class CreateAccount extends React.Component {
 
     render() {
         return (
+
             <div>
+                <Navbar />
                 <form onSubmit={this.handleSubmit} method="post" className="FlexForm">
                     <input type="text" onChange={this.logChange} autoFocus="autofocus" placeholder="Username" className="FlexItem" name="username"></input>
                     <input type="text" onChange={this.logChange} placeholder="Email Address" className="FlexItem" name="email"></input>

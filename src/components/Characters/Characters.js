@@ -1,9 +1,11 @@
 import React from 'react';
 import './Characters.css';
+import Navbar from '../Navbar/Navbar.js';
 
 function Characters() {
   return (
-    <div>
+      <div>
+          <Navbar />
       <table>
       <tr>
           <th>Portrait, Name, Gender<br/>

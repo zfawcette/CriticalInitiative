@@ -1,6 +1,7 @@
 import React from 'react';
 import './JoinRoom.css';
 import { Link } from 'react-router-dom'
+import Navbar from '../Navbar/Navbar.js';
 
 
 function zeroPad(num, places) {
@@ -123,12 +124,15 @@ class JoinRoom extends React.Component {
 
     render() {
         return (
-            <div className="FlexDiv">
-                <div className="innerFlexDiv">
-                    <button onClick={this.generateRoom}>Host Room</button>
-                    <h3>OR</h3>
-                    <input name="roomId"onChange={this.logChange} placeholder="ROOM ID" type='text'/>
-                    <button onClick={this.joinRoomButton}>Join Room</button>
+            <div>
+                <Navbar />
+                <div className="FlexDiv">
+                    <div className="innerFlexDiv">
+                        <button onClick={this.generateRoom}>Host Room</button>
+                        <h3>OR</h3>
+                        <input name="roomId"onChange={this.logChange} placeholder="ROOM ID" type='text'/>
+                        <button onClick={this.joinRoomButton}>Join Room</button>
+                    </div>
                 </div>
             </div>
         );
