@@ -8,6 +8,7 @@ import Characters from './components/Characters/Characters.js';
 import EditCharacter from './components/EditCharacter/EditCharacter.js';
 import JoinRoom from './components/JoinRoom/JoinRoom.js';
 import Room from './components/Room/Room.js';
+import CharacterImg from './components/CharacterImage/CharacterImg';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Router>
               <Switch>
                   <Route exact path="/" component={LogIn} />
+                  <Route exact path="/characterImage" component={CharacterImg} />
                   <Route exact path="/createaccount" component={CreateAccount} />
                   <Route exact path="/forgotpassword" component={ForgotPassword} />
                   <Route exact path="/home" component={Home} />
