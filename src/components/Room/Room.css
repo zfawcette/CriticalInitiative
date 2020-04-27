@@ -27,26 +27,39 @@
     padding: 1em;
     margin: 0;
     position: fixed;
-    top: 4em;
+    top: 0em;
+    z-index: 3;
 }
 
 .addCharacterButton{
     margin: 0;
     padding: 1em;
     position: fixed;
-    top: 4em;
-    right: 24em;
+    top: 0em;
+    right: 0em;
 }
 
-.nextTurnButton {
+.addMonsterButton {
     margin: 0;
     padding: 1em;
     position: fixed;
-    bottom: 0em;
-    right: 24em;
+    top: 0em;
+    right: 15em;
 }
 
 .addCharacterPopup{
+    width: 40%;
+    height: 40%;
+    background-color: grey;
+    z-index: 1;
+    position: fixed;
+    top: 10em;
+    left: 0;
+    right: 0;
+    display: none;
+}
+
+.addMonsterPopup {
     width: 40%;
     height: 40%;
     background-color: grey;
@@ -79,4 +92,14 @@
     padding: 1em;
     display: block;
         width: 100%;
+}
+
+.topToolbar{
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2.9em;
+    background: red;
 }

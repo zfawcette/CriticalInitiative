@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './LogIn.css';
 import { Link } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar.js';
 
 
 class LogIn extends Component{
     render(){
         return (
             <div>
+                <Navbar />
                 <form method="post" className="FlexForm">
                     <input type="text" placeholder="Username" className="FlexItem" name="username"></input>
                         <input type="password" placeholder="Password" className="FlexItem" name="password"></input>

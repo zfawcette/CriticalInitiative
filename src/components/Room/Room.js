@@ -69,7 +69,6 @@ const Room = ({ location }) => {
 
         promise.then(
             function (result) {
-                console.log(result[0].name);
                 if (result) {
                     socket.emit('newCharacter', { newCharacter: result[0] });
                     //adding lines to clear out the inputed data after adding character
@@ -84,6 +83,10 @@ const Room = ({ location }) => {
                 }
             }
         );
+    }
+
+    const addMonsterButtonClicked = () => {
+        console.log("clicked");
     }
 
     const addCharacterButton = () => {
@@ -124,8 +127,16 @@ const Room = ({ location }) => {
         document.getElementById("CharacterPopup").style.display = "block";
     }
 
+    const addMonsterButton = () => {
+        document.getElementById("MonsterPopup").style.display = "block";
+    }
+
     const exitCharacterPopUp = () => {
         document.getElementById("CharacterPopup").style.display = "none";
+    }
+
+    const exitMonsterPopUp = () => {
+        document.getElementById("MonsterPopup").style.display = "none";
     }
 
     const updateCharactersDiv = () => {
@@ -239,18 +250,24 @@ const Room = ({ location }) => {
                 <input id="characterClassField" type="text" placeholder="Character Class" />
                 <button onClick={addButtonClicked}>Add</button>
             </div>
+            <div className="addMonsterPopup" id="MonsterPopup">
+                <h1>Monsters</h1>
+                <button className="exitButton" onClick={exitMonsterPopUp}>X</button>
+                <input id="monsterNameField" type="text" placeholder="Monster Name" />
+                <input id="monsterQuantityField" type="text" placeholder="Quantity" />
+                <button onClick={addMonsterButtonClicked}>Add</button>
+            </div>
             <div style={{ display: "flex", flexDirection: "row" }}>
                 <button className="leaveRoomDiv" onClick={leaveRoomButton}>Leave Room</button>
                 <div className="main">
                     <h2>Room ID: {roomId}</h2>
                     <div className="CharacterDiv" id="CharacterDiv">
                     </div>
-                    <div className="ButtonDiv">
+                    <div className="topToolbar">
                         <button className="addCharacterButton" id="AddCharacterButton" onClick={addCharacterButton}>Add Character</button>
-                        <button className="nextTurnButton">Next Turn</button>
+                        <button className="addMonsterButton" id="AddMonsterButton" onClick={addMonsterButton}>Add Monster</button>
                     </div>  
                 </div>
-                <RoomSidebar />
             </div>
         </div>
     )

@@ -8,14 +8,12 @@ import Characters from './components/Characters/Characters.js';
 import EditCharacter from './components/EditCharacter/EditCharacter.js';
 import JoinRoom from './components/JoinRoom/JoinRoom.js';
 import Room from './components/Room/Room.js';
-import Navbar from './components/Navbar/Navbar.js';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
       <div className="App">
           <Router>
-              <Navbar />
               <Switch>
                   <Route exact path="/" component={LogIn} />
                   <Route exact path="/createaccount" component={CreateAccount} />
