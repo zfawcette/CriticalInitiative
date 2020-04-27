@@ -6,7 +6,7 @@ function EditCharacter() {
   return (
       <div>
           <Navbar />
-          <h1>Edit Character</h1>
+          <h2>Edit Character</h2>
     </div>
   );
 }
