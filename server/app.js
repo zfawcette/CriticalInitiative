@@ -180,6 +180,8 @@ io.on('connection', (socket) => {
     socket.on('newCharacter', ({ newCharacter }) => {
         const user = getUser(socket.id);
         if (user) {
+            var initRoll = Math.ceil((Math.random() * 20) + 1);
+            newCharacter.initiative = newCharacter.initiative + initRoll;
             const { error, character } = addCharacter({ userId: user.userId, roomId: user.roomId, characterId: newCharacter });
 
             if (error) return callback(error);
