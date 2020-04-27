@@ -23,6 +23,8 @@
 .vs/
 =======
 .vs/
+.vs/slnx.sqlite
+.vs/CriticalInitiative/v15/.suo
 
 >>>>>>> master
 npm-debug.log*
