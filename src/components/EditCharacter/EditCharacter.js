@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { TextField, Button } from '@material-ui/core';
+import './EditCharacter.css';
 import Navbar from '../Navbar/Navbar.js';
 
-function EditCharacter() {
+function EditCharacter(props) {
     const [userId, setUserId] = React.useState('');
     const [name, setName] = React.useState('');
     const [level, setLevel] = React.useState('');
@@ -23,16 +24,18 @@ function EditCharacter() {
     const [experience, setExperience] = React.useState(0);
 
     useEffect(() => {
+        // alert('character id ' + props.match.params.id)
         const user_id = !!localStorage.getItem('user_id') ? localStorage.getItem('user_id') : ''
         if (user_id) {
             setUserId(user_id)
-            alert(user_id)
+            // alert(user_id)
 
-            fetch("/users/getCharacter", {
+            fetch("/users/getCharacterById", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    user_id
+                    user_id,
+                    character_id: props.match.params.id
                 })
             }).then(function (response) {
                 if (response.status >= 400) {
@@ -76,6 +79,7 @@ function EditCharacter() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 userId: Number(userId),
+                character_id: props.match.params.id,
                 name,
                 level,
                 pclass,
@@ -101,6 +105,7 @@ function EditCharacter() {
             return response.json();
         }).then(function (res) {
             console.log('--- update response ---', res)
+            alert('data update successfully')
         }).catch(function (err) {
             console.log(err)
         });
@@ -151,7 +156,6 @@ function EditCharacter() {
                         value={experience}
                         onChange={e => setExperience(e.target.value)} /><br /><br />
                     <Button style={{ backgroundColor: 'grey', color: 'white' }} onClick={handlerForm}>Save</Button>
-
                 </div>
             </div>
         );

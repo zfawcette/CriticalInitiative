@@ -53,6 +53,7 @@ class LogIn extends Component {
                     console.log(res);
                     localStorage.setItem("user_id", res[0].user_id)
                     alert('login successfully')
+                    window.open('http://localhost:3000/home', '_self')
                 }
             }).catch(function (err) {
                 console.log(err)

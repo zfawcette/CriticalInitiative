@@ -1,96 +1,119 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import { Link } from 'react-router-dom';
 import './Characters.css';
 import Navbar from '../Navbar/Navbar.js';
 
+const useStyles = makeStyles({
+    table: {
+        minWidth: 650,
+    },
+});
+
 function Characters() {
-  return (
-      <div>
-          <Navbar />
-      <table>
-      <tr>
-          <th>Portrait, Name, Gender<br/>
-          Skills (Level in each hidden skill)<br/>
-          Equipment</th>
-      </tr>
-      <tr>
-          <td><img alt="Dungeon Master for PC Champion - Iaido" class="screenshot double" height="58" src="files/DM-Champion-PC-Iaido.png" title="Dungeon Master for PC Champion - Iaido" width="64"/> <img alt="Dungeon Master for Super NES / Super Famicom Champion - Iaido" class="screenshot double" height="48" src="files/DM-Champion-SuperNES-Iaido.png" title="Dungeon Master for Super NES / Super Famicom Champion - Iaido" width="48"/><br/>
-          1. Iaido Ruyito Chiburi (Male)
-          <p>Apprentice Fighter (Swing: 2, Thrust: 3, Club: 0, Parry: 2)<br/>
-          Novice Priest (Identify: 1, Heal: 1, Influence: 1, Defend: 2)</p>
-          <p><img alt="Dungeon Master Item - Ghi" class="screenshot item double" height="32" src="files/DMCSB-Item-Ghi.png" title="Dungeon Master Item - Ghi" width="32"/> Ghi, <img alt="Dungeon Master Item - Ghi Trousers" class="screenshot item double" height="32" src="files/DMCSB-Item-GhiTrousers.png" title="Dungeon Master Item - Ghi Trousers" width="32"/> Ghi Trousers, <img alt="Dungeon Master Item - Samurai Sword" class="screenshot item double" height="32" src="files/DMCSB-Item-SamuraiSword.png" title="Dungeon Master Item - Samurai Sword" width="32"/> Samurai Sword</p>
-          </td>
-          <td><img alt="Dungeon Master for PC Champion - Zed" class="screenshot double" height="58" src="files/DM-Champion-PC-Zed.png" title="Dungeon Master for PC Champion - Zed" width="64"/> <img alt="Dungeon Master for Super NES / Super Famicom Champion - Zed" class="screenshot double" height="48" src="files/DM-Champion-SuperNES-Zed.png" title="Dungeon Master for Super NES / Super Famicom Champion - Zed" width="48"/><br/>
-2. Zed Duke Of Banville (Male)
-<p>Novice Fighter (Swing: 2, Thrust: 1, Club: 1, Parry: 2)<br/>
-Novice Ninja (Steal: 2, Fight: 1, Throw: 2, Shoot: 1)<br/>
-Novice Priest (Identify: 1, Heal: 2, Influence: 1, Defend: 1)<br/>
-Novice Wizard (Fire: 1, Air: 2, Earth: 1, Water: 1)</p>
-<p><img alt="Dungeon Master Item - Mithral Aketon" class="screenshot item double" height="32" src="files/DMCSB-Item-MithralAketon.png" title="Dungeon Master Item - Mithral Aketon" width="32"/> Mail Aketon, <img alt="Dungeon Master Item - Blue Pants" class="screenshot item double" height="32" src="files/DMCSB-Item-BluePants.png" title="Dungeon Master Item - Blue Pants" width="32"/> Blue Pants, <img alt="Dungeon Master Item - Hosen" class="screenshot item double" height="32" src="files/DMCSB-Item-Hosen.png" title="Dungeon Master Item - Hosen" width="32"/> Hosen, <img alt="Dungeon Master Item - Torch (Unlit)" class="screenshot item double" height="32" src="files/DMCSB-Item-Torch(Unlit).png" title="Dungeon Master Item - Torch (Unlit)" width="32"/> Torch</p></td>
-<td><img alt="Dungeon Master for PC Champion - Chani" class="screenshot double" height="58" src="files/DM-Champion-PC-Chani.png" title="Dungeon Master for PC Champion - Chani" width="64"/> <img alt="Dungeon Master for Super NES / Super Famicom Champion - Chani" class="screenshot double" height="48" src="files/DM-Champion-SuperNES-Chani.png" title="Dungeon Master for Super NES / Super Famicom Champion - Chani" width="48"/><br/>
-3. Chani Sayyadina Sihaya (Female)
-<p>Novice Fighter (Swing: 1, Thrust: 3, Club: 0, Parry: 2)<br/>
-Priest (Identify: 0, Heal: 0, Influence: 0+1, Defend: 0)<br/>
-Apprentice Wizard (Fire: 3, Air: 2, Earth: 3, Water: 1)</p>
-<p><img alt="Dungeon Master Item - Silk Shirt" class="screenshot item double" height="32" src="files/DMCSB-Item-SilkShirt.png" title="Dungeon Master Item - Silk Shirt" width="32"/> Silk Shirt, <img alt="Dungeon Master Item - Gunna" class="screenshot item double" height="32" src="files/DMCSB-Item-Gunna.png" title="Dungeon Master Item - Gunna" width="32"/> Gunna, <img alt="Dungeon Master Item - Sandals" class="screenshot item double" height="32" src="files/DMCSB-Item-Sandals.png" title="Dungeon Master Item - Sandals" width="32"/> Sandals, <img alt="Dungeon Master Item - Moonstone" class="screenshot item double" height="32" src="files/DMCSB-Item-Moonstone.png" title="Dungeon Master Item - Moonstone" width="32"/> Moonstone (+3 Mana, +1 Priest skill level in Influence)</p></td>
-<td><img alt="Dungeon Master for PC Champion - Hawk" class="screenshot double" height="58" src="files/DM-Champion-PC-Hawk.png" title="Dungeon Master for PC Champion - Hawk" width="64"/> <img alt="Dungeon Master for Super NES / Super Famicom Champion - Hawk" class="screenshot double" height="48" src="files/DM-Champion-SuperNES-Hawk.png" title="Dungeon Master for Super NES / Super Famicom Champion - Hawk" width="48"/><br/>
-4. Hawk The Fearless (Male)
-<p>Novice Fighter (Swing: 2, Thrust: 0, Club: 0, Parry: 2)<br/>
-Apprentice Priest (Identify: 0, Heal: 3, Influence: 0, Defend: 3)</p>
-<p><img alt="Dungeon Master Item - Leather Jerkin" class="screenshot item double" height="32" src="files/DMCSB-Item-LeatherJerkin.png" title="Dungeon Master Item - Leather Jerkin" width="32"/> Leather Jerkin, <img alt="Dungeon Master Item - Leather Pants" class="screenshot item double" height="32" src="files/DMCSB-Item-LeatherPants.png" title="Dungeon Master Item - Leather Pants" width="32"/> Leather Pants, <img alt="Dungeon Master Item - Suede Boots" class="screenshot item double" height="32" src="files/DMCSB-Item-SuedeBoots.png" title="Dungeon Master Item - Suede Boots" width="32"/> Suede Boots, <img alt="Dungeon Master Item - Arrow" class="screenshot item double" height="32" src="files/DMCSB-Item-Arrow.png" title="Dungeon Master Item - Arrow" width="32"/> Arrow (2)</p></td>
-<td><img alt="Dungeon Master for PC Champion - Boris" class="screenshot double" height="58" src="files/DM-Champion-PC-Boris.png" title="Dungeon Master for PC Champion - Boris" width="64"/> <img alt="Dungeon Master for Super NES / Super Famicom Champion - Boris" class="screenshot double" height="48" src="files/DM-Champion-SuperNES-Boris.png" title="Dungeon Master for Super NES / Super Famicom Champion - Boris" width="48"/><br/>
-5. Boris Wizard Of Baldor (Male)
-<p>Novice Ninja (Steal: 3, Fight: 2, Throw: 1, Shoot: 0)<br/>
-Apprentice Wizard (Fire: 2, Air: 3, Earth: 3, Water: 3)</p>
-<p><img alt="Dungeon Master Item - Tunic" class="screenshot item double" height="32" src="files/DMCSB-Item-Tunic.png" title="Dungeon Master Item - Tunic" width="32"/> Tunic, <img alt="Dungeon Master Item - Leather Pants" class="screenshot item double" height="32" src="files/DMCSB-Item-LeatherPants.png" title="Dungeon Master Item - Leather Pants" width="32"/> Leather Pants, <img alt="Dungeon Master Item - Leather Boots" class="screenshot item double" height="32" src="files/DMCSB-Item-LeatherBoots.png" title="Dungeon Master Item - Leather Boots" width="32"/> Leather Boots, <img alt="Dungeon Master Item - Rabbit's Foot" class="screenshot item double" height="32" src="files/DMCSB-Item-RabbitsFoot.png" title="Dungeon Master Item - Rabbit's Foot" width="32"/> Rabbit's Foot (+10 Luck)</p></td>
-<td><img alt="Dungeon Master for PC Champion - Nabi" class="screenshot double" height="58" src="files/DM-Champion-PC-Nabi.png" title="Dungeon Master for PC Champion - Nabi" width="64"/> <img alt="Dungeon Master for Super NES / Super Famicom Champion - Nabi" class="screenshot double" height="48" src="files/DM-Champion-SuperNES-Nabi.png" title="Dungeon Master for Super NES / Super Famicom Champion - Nabi" width="48"/><br/>
-7. Nabi The Prophet (Male)
-<p>Apprentice Priest (Identify: 1, Heal: 1, Influence: 4, Defend: 2)<br/>
-Novice Wizard (Fire: 1, Air: 1, Earth: 1, Water: 1)</p>
-<p><img alt="Dungeon Master Item - Tunic" class="screenshot item double" height="32" src="files/DMCSB-Item-Tunic.png" title="Dungeon Master Item - Tunic" width="32"/> Tunic, <img alt="Dungeon Master Item - Blue Pants" class="screenshot item double" height="32" src="files/DMCSB-Item-BluePants.png" title="Dungeon Master Item - Blue Pants" width="32"/> Blue Pants, <img alt="Dungeon Master Item - Sandals" class="screenshot item double" height="32" src="files/DMCSB-Item-Sandals.png" title="Dungeon Master Item - Sandals" width="32"/> Sandals, <img alt="Dungeon Master Item - Staff" class="screenshot item double" height="32" src="files/DMCSB-Item-Staff.png" title="Dungeon Master Item - Staff" width="32"/> Staff (+2 Mana)</p></td>
-<td><img alt="Dungeon Master for PC Champion - Hissssa" class="screenshot double" height="58" src="files/DM-Champion-PC-Hissssa.png" title="Dungeon Master for PC Champion - Hissssa" width="64"/> <img alt="Dungeon Master for Super NES / Super Famicom Champion - Hissssa" class="screenshot double" height="48" src="files/DM-Champion-SuperNES-Hissssa.png" title="Dungeon Master for Super NES / Super Famicom Champion - Hissssa" width="48"/><br/>
-8. Hissssa Lizar Of Makan (Male)
-<p>Apprentice Fighter (Swing: 4, Thrust: 3, Club: 0, Parry: 0)<br/>
-Novice Ninja (Steal: 0, Fight: 3, Throw: 1, Shoot: 0)</p>
-<p>-</p></td>
-<td><img alt="Dungeon Master for PC Champion - Gothmog" class="screenshot double" height="58" src="files/DM-Champion-PC-Gothmog.png" title="Dungeon Master for PC Champion - Gothmog" width="64"/> <img alt="Dungeon Master for Super NES / Super Famicom Champion - Gothmog" class="screenshot double" height="48" src="files/DM-Champion-SuperNES-Gothmog.png" title="Dungeon Master for Super NES / Super Famicom Champion - Gothmog" width="48"/><br/>
-9. Gothmog (Male)
-<p>Journeyman Wizard (Fire: 4, Air: 3, Earth: 2, Water: 2)</p>
-<p><img alt="Dungeon Master Item - Cloak Of Night" class="screenshot item double" height="32" src="files/DMCSB-Item-CloakOfNight.png" title="Dungeon Master Item - Cloak Of Night" width="32"/> Cloak of Night (+8 Dexterity)</p></td>
-<td><img alt="Dungeon Master for PC Champion - Sonja" class="screenshot double" height="58" src="files/DM-Champion-PC-Sonja.png" title="Dungeon Master for PC Champion - Sonja" width="64"/> <img alt="Dungeon Master for Super NES / Super Famicom Champion - Sonja" class="screenshot double" height="48" src="files/DM-Champion-SuperNES-Sonja.png" title="Dungeon Master for Super NES / Super Famicom Champion - Sonja" width="48"/><br/>
-10. Sonja She Devil (Female)
-<p>Journeyman Fighter (Swing: 3, Thrust: 4, Club: 2, Parry: 3)</p>
-<p><img alt="Dungeon Master Item - Halter" class="screenshot item double" height="32" src="files/DMCSB-Item-Halter.png" title="Dungeon Master Item - Halter" width="32"/> Halter, <img alt="Dungeon Master Item - Gunna" class="screenshot item double" height="32" src="files/DMCSB-Item-Gunna.png" title="Dungeon Master Item - Gunna" width="32"/> Gunna, <img alt="Dungeon Master Item - Sandals" class="screenshot item double" height="32" src="files/DMCSB-Item-Sandals.png" title="Dungeon Master Item - Sandals" width="32"/> Sandals, <img alt="Dungeon Master Item - Choker" class="screenshot item double" height="32" src="files/DMCSB-Item-Choker.png" title="Dungeon Master Item - Choker" width="32"/> Choker, <img alt="Dungeon Master Item - Sword" class="screenshot item double" height="32" src="files/DMCSB-Item-Sword.png" title="Dungeon Master Item - Sword" width="32"/> Sword</p></td>
-<td><img alt="Dungeon Master for PC Champion - Leyla" class="screenshot double" height="58" src="files/DM-Champion-PC-Leyla.png" title="Dungeon Master for PC Champion - Leyla" width="64"/> <img alt="Dungeon Master for Super NES / Super Famicom Champion - Leyla" class="screenshot double" height="48" src="files/DM-Champion-SuperNES-Leyla.png" title="Dungeon Master for Super NES / Super Famicom Champion - Leyla" width="48"/><br/>
-11. Leyla Shadowseek (Female)
-<p>Journeyman Ninja (Steal: 3, Fight: 3, Throw: 3, Shoot: 4)</p>
-<p><img alt="Dungeon Master Item - Silk Shirt" class="screenshot item double" height="32" src="files/DMCSB-Item-SilkShirt.png" title="Dungeon Master Item - Silk Shirt" width="32"/> Silk Shirt, <img alt="Dungeon Master Item - Leather Pants" class="screenshot item double" height="32" src="files/DMCSB-Item-LeatherPants.png" title="Dungeon Master Item - Leather Pants" width="32"/> Leather Pants, <img alt="Dungeon Master Item - Leather Boots" class="screenshot item double" height="32" src="files/DMCSB-Item-LeatherBoots.png" title="Dungeon Master Item - Leather Boots" width="32"/> Leather Boots, <img alt="Dungeon Master Item - Rope" class="screenshot item double" height="32" src="files/DMCSB-Item-Rope.png" title="Dungeon Master Item - Rope" width="32"/> Rope</p></td>
-<td><img alt="Dungeon Master for PC Champion - Mophus" class="screenshot double" height="58" src="files/DM-Champion-PC-Mophus.png" title="Dungeon Master for PC Champion - Mophus" width="64"/> <img alt="Dungeon Master for Super NES / Super Famicom Champion - Mophus" class="screenshot double" height="48" src="files/DM-Champion-SuperNES-Mophus.png" title="Dungeon Master for Super NES / Super Famicom Champion - Mophus" width="48"/><br/>
-12. Mophus The Healer (Male)
-<p>Journeyman Priest (Identify: 2, Heal: 4, Influence: 3, Defend: 2)</p>
-<p><img alt="Dungeon Master Item - Robe (Body)" class="screenshot item double" height="32" src="files/DM-Item-PC-Robe(Body).png" title="Dungeon Master Item - Robe (Body)" width="32"/> Robe (Body), <img alt="Dungeon Master Item - Robe (Legs)" class="screenshot item double" height="32" src="files/DMCSB-Item-Robe(Legs).png" title="Dungeon Master Item - Robe (Legs)" width="32"/> Robe (Legs), <img alt="Dungeon Master Item - Sandals" class="screenshot item double" height="32" src="files/DMCSB-Item-Sandals.png" title="Dungeon Master Item - Sandals" width="32"/> Sandals, <img alt="Dungeon Master Item - Bread" class="screenshot item double" height="32" src="files/DMCSB-Item-Bread.png" title="Dungeon Master Item - Bread" width="32"/> Bread, <img alt="Dungeon Master Item - Cheese" class="screenshot item double" height="32" src="files/DMCSB-Item-Cheese.png" title="Dungeon Master Item - Cheese" width="32"/> Cheese, <img alt="Dungeon Master Item - Apple" class="screenshot item double" height="32" src="files/DMCSB-Item-Apple.png" title="Dungeon Master Item - Apple" width="32"/> Apple</p></td>
-<td><img alt="Dungeon Master for PC Champion - Wuuf" class="screenshot double" height="58" src="files/DM-Champion-PC-Wuuf.png" title="Dungeon Master for PC Champion - Wuuf" width="64"/> <img alt="Dungeon Master for Super NES / Super Famicom Champion - Wuuf" class="screenshot double" height="48" src="files/DM-Champion-SuperNES-Wuuf.png" title="Dungeon Master for Super NES / Super Famicom Champion - Wuuf" width="48"/><br/>
-13. Wuuf The Bika (Female)
-<p>Apprentice Ninja (Steal: 1, Fight: 2, Throw: 3, Shoot: 4)<br/>
-Novice Priest (Identify: 0, Heal: 3, Influence: 2, Defend: 1)</p>
-<p><img alt="Dungeon Master Item - Leather Jerkin" class="screenshot item double" height="32" src="files/DMCSB-Item-LeatherJerkin.png" title="Dungeon Master Item - Leather Jerkin" width="32"/> Leather Jerkin, <img alt="Dungeon Master Item - Empty Flask" class="screenshot item double" height="32" src="files/DMCSB-Item-EmptyFlask.png" title="Dungeon Master Item - Empty Flask" width="32"/> Empty Flask</p></td>
-<td><img alt="Dungeon Master for PC Champion - Stamm" class="screenshot double" height="58" src="files/DM-Champion-PC-Stamm.png" title="Dungeon Master for PC Champion - Stamm" width="64"/> <img alt="Dungeon Master for Super NES / Super Famicom Champion - Stamm" class="screenshot double" height="48" src="files/DM-Champion-SuperNES-Stamm.png" title="Dungeon Master for Super NES / Super Famicom Champion - Stamm" width="48"/><br/>
-14. Stamm Bladecaster (Male)
-<p>Journeyman Fighter (Swing: 3, Thrust: 4, Club: 2, Parry: 2)</p>
-<p><img alt="Dungeon Master Item - Tunic" class="screenshot item double" height="32" src="files/DMCSB-Item-Tunic.png" title="Dungeon Master Item - Tunic" width="32"/> Tunic, <img alt="Dungeon Master Item - Leather Pants" class="screenshot item double" height="32" src="files/DMCSB-Item-LeatherPants.png" title="Dungeon Master Item - Leather Pants" width="32"/> Leather Pants, <img alt="Dungeon Master Item - Suede Boots" class="screenshot item double" height="32" src="files/DMCSB-Item-SuedeBoots.png" title="Dungeon Master Item - Suede Boots" width="32"/> Suede Boots, <img alt="Dungeon Master Item - Axe" class="screenshot item double" height="32" src="files/DMCSB-Item-Axe.png" title="Dungeon Master Item - Axe" width="32"/> Axe</p></td>
-<td><img alt="Dungeon Master for PC Champion - Azizi" class="screenshot double" height="58" src="files/DM-Champion-PC-Azizi.png" title="Dungeon Master for PC Champion - Azizi" width="64"/> <img alt="Dungeon Master for Super NES / Super Famicom Champion - Azizi" class="screenshot double" height="48" src="files/DM-Champion-SuperNES-Azizi.png" title="Dungeon Master for Super NES / Super Famicom Champion - Azizi" width="48"/><br/>
-15. Azizi Johari (Female)
-<p>Novice Fighter (Swing: 2, Thrust: 1, Club: 3, Parry: 0)<br/>
-Apprentice Ninja (Steal: 2, Fight: 2, Throw: 3, Shoot: 3)</p>
-<p><img alt="Dungeon Master Item - Halter" class="screenshot item double" height="32" src="files/DMCSB-Item-Halter.png" title="Dungeon Master Item - Halter" width="32"/> Halter, <img alt="Dungeon Master Item - Barbarian Hide" class="screenshot item double" height="32" src="files/DM-Item-PC-BarbarianHide.png" title="Dungeon Master Item - Barbarian Hide" width="32"/> Barbarian Hide, <img alt="Dungeon Master Item - Hide Shield" class="screenshot item double" height="32" src="files/DM-Item-PC-HideShield.png" title="Dungeon Master Item - Hide Shield" width="32"/> Hide Shield, <img alt="Dungeon Master Item - Dagger" class="screenshot item double" height="32" src="files/DMCSB-Item-Dagger.png" title="Dungeon Master Item - Dagger" width="32"/> Dagger (2)</p></td>
-<td><img alt="Dungeon Master for PC Champion - Leif" class="screenshot double" height="58" src="files/DM-Champion-PC-Leif.png" title="Dungeon Master for PC Champion - Leif" width="64"/> <img alt="Dungeon Master for Super NES / Super Famicom Champion - Leif" class="screenshot double" height="48" src="files/DM-Champion-SuperNES-Leif.png" title="Dungeon Master for Super NES / Super Famicom Champion - Leif" width="48"/><br/>
-16. Leif The Valiant (Male)
-<p>Apprentice Fighter (Swing: 3, Thrust: 2, Club: 2, Parry: 0)<br/>
-Novice Priest (Identify: 0, Heal: 2, Influence: 1, Defend: 1)</p>
-<p><img alt="Dungeon Master Item - Leather Jerkin" class="screenshot item double" height="32" src="files/DMCSB-Item-LeatherJerkin.png" title="Dungeon Master Item - Leather Jerkin" width="32"/> Leather Jerkin, <img alt="Dungeon Master Item - Leather Pants" class="screenshot item double" height="32" src="files/DMCSB-Item-LeatherPants.png" title="Dungeon Master Item - Leather Pants" width="32"/> Leather Pants, <img alt="Dungeon Master Item - Leather Boots" class="screenshot item double" height="32" src="files/DMCSB-Item-LeatherBoots.png" title="Dungeon Master Item - Leather Boots" width="32"/> Leather Boots</p></td>
-        </tr>
-      </table>
-    </div>
-  );
+    const classes = useStyles();
+    const [userId, setUserId] = React.useState('');
+    const [data, setData] = React.useState([]);
+
+    useEffect(() => {
+        const user_id = !!localStorage.getItem('user_id') ? localStorage.getItem('user_id') : ''
+        if (user_id) {
+            setUserId(user_id)
+
+            fetch("/users/getCharacter", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_id
+                })
+            }).then(function (response) {
+                if (response.status >= 400) {
+                    throw new Error("Bad Response from Server");
+                }
+                return response.json();
+            }).then(function (res) {
+                if (res.length < 1) {
+                    alert('No User Character Available')
+                } else {
+                    console.log(res);
+                    setData(res)
+                }
+            }).catch(function (err) {
+                console.log(err)
+            });
+        }
+
+    }, [])
+
+
+    return (
+        <div>
+            <Navbar />
+            <div style={{ marginTop: 85, marginBottom: 15, padding: 10 }}>
+                <TableContainer component={Paper}>
+                    <Table className={classes.table} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>#</TableCell>
+                                <TableCell align="right">Name</TableCell>
+                                <TableCell align="right">Level</TableCell>
+                                <TableCell align="right">Class</TableCell>
+                                <TableCell align="right">Race</TableCell>
+                                <TableCell align="right">Current Hp</TableCell>
+                                <TableCell align="right">Max Hp</TableCell>
+                                <TableCell align="right">Strength</TableCell>
+                                <TableCell align="right">Dexterity</TableCell>
+                                <TableCell align="right">Constitution</TableCell>
+                                <TableCell align="right">Intelligence</TableCell>
+                                <TableCell align="right">Wisdom</TableCell>
+                                <TableCell align="right">Charisma</TableCell>
+                                <TableCell align="right">Armor Class</TableCell>
+                                <TableCell align="right">Initiative</TableCell>
+                                <TableCell align="right">Speed</TableCell>
+                                <TableCell align="right">Alignment</TableCell>
+                                <TableCell align="right">Experience</TableCell>
+                                <TableCell align="right">Action</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {data.map((row, index) => (
+                                <TableRow key={row.name}>
+                                    <TableCell component="th" scope="row">
+                                        {Number(index) + 1}
+                                    </TableCell>
+                                    <TableCell align="right">{row.name}</TableCell>
+                                    <TableCell align="right">{row.level}</TableCell>
+                                    <TableCell align="right">{row.class}</TableCell>
+                                    <TableCell align="right">{row.race}</TableCell>
+                                    <TableCell align="right">{row.current_hp}</TableCell>
+                                    <TableCell align="right">{row.max_hp}</TableCell>
+                                    <TableCell align="right">{row.strength}</TableCell>
+                                    <TableCell align="right">{row.dexterity}</TableCell>
+                                    <TableCell align="right">{row.constitution}</TableCell>
+                                    <TableCell align="right">{row.intelligence}</TableCell>
+                                    <TableCell align="right">{row.wisdom}</TableCell>
+                                    <TableCell align="right">{row.charisma}</TableCell>
+                                    <TableCell align="right">{row.armor_class}</TableCell>
+                                    <TableCell align="right">{row.initiative}</TableCell>
+                                    <TableCell align="right">{row.speed}</TableCell>
+                                    <TableCell align="right">{row.alignment}</TableCell>
+                                    <TableCell align="right">{row.experience}</TableCell>
+                                    <TableCell align="right"><Link to={'/editCharacter/' + row.character_id}>View</Link></TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
+        </div>
+    );
 }
 
 export default Characters;

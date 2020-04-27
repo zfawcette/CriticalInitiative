@@ -1,16 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src",
-    "\\src\\components",
-    "\\src\\components\\Characters",
-    "\\src\\components\\EditCharacter",
-    "\\src\\components\\JoinRoom",
-    "\\src\\components\\LogIn",
-    "\\src\\components\\Navbar",
-    "\\src\\components\\PageComponents",
-    "\\src\\components\\Room"
+    "\\server",
+    "\\server\\routes"
   ],
-  "SelectedNode": "\\src\\components\\LogIn\\LogIn.js",
+  "SelectedNode": "\\server\\routes\\users.js",
   "PreviewInSolutionExplorer": false
 }
