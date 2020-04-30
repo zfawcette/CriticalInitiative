@@ -16,6 +16,36 @@ const Room = ({ location }) => {
     const [userCharacters, setUserCharacters] = useState([]);
     const ENDPOINT = 'localhost:3306';
 
+    const removeCharacter = (userId) => {
+        //console.log(userCharacters);
+        //var index = userCharacters.findIndex((character) => userCharacters.userId === userId);
+
+        //if (index !== -1) {
+        //    return userCharacters.splice(index, 1)[0];
+        //} else {
+        //    index = userCharacters.findIndex((character) => userCharacters.characterToAdd.newCharacter.userId === userId);
+
+        //    if (index !== -1) {
+        //        return userCharacters.splice(index, 1)[0];
+        //    }
+        //}
+
+        var index = -1;
+        for (var i = 0; i < userCharacters.length; i++) {
+            console.log(userCharacters[i].characterToAdd.newCharacter.userId + " vs " + userId.user);
+            if (userCharacters[i].characterToAdd.newCharacter.userId == userId.user) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index !== -1) {
+            return userCharacters.splice(index, 1)[0];
+        } else {
+            return false;
+        }
+    }
+
     const leaveRoomButton = () => {
         if (hostFlag == 1) {
             var data = { roomId };
@@ -48,7 +78,6 @@ const Room = ({ location }) => {
 
     const addButtonClicked = () => {
         var data = { name: document.getElementById("characterNameField").value, class: document.getElementById("characterClassField").value };
-        console.log(data);
         let promise = new Promise(function (resolve, reject) {
             var p = fetch('/room/loadCharacter', {
                 method: "POST",
@@ -86,7 +115,40 @@ const Room = ({ location }) => {
     }
 
     const addMonsterButtonClicked = () => {
-        console.log("clicked");
+        var data = { name: document.getElementById("monsterNameField").value };
+        for (var i = 0; i < document.getElementById("monsterQuantityField").value; i++) {
+            let promise = new Promise(function (resolve, reject) {
+                var p = fetch('/room/loadMonsters', {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                }).then(function (response) {
+                    if (response.status >= 400) {
+                        throw new Error("Bad Response from Server");
+                    }
+                    return response.json();
+                }).then(function (data) {
+                    return data;
+                }).catch(function (err) {
+                    console.log(err)
+                });
+                setTimeout(() => resolve(p), 1000);
+            });
+
+            promise.then(
+                function (result) {
+                    if (result) {
+                        socket.emit('newCharacter', { newCharacter: result[0] });
+                        //adding lines to clear out the inputed data after adding character
+                        document.getElementById("monsterNameField").value = "";
+                        document.getElementById("monsterQuantityField").value = "";
+                        exitMonsterPopUp();
+                    } else {
+                        alert("Did Not Load Monsters");
+                    }
+                }
+            );
+        }
     }
 
     const addCharacterButton = () => {
@@ -151,7 +213,7 @@ const Room = ({ location }) => {
             //alert(userCharacters.length);
             for (var i = 0; i < userCharacters.length; i++) {
                 if (userCharacters[i].characterToAdd != null) {
-                    usersinit.push(userCharacters[i].characterToAdd.initiative);
+                    usersinit.push(userCharacters[i].characterToAdd.newCharacter.characterId.initiative);
                     usersinitindex.push(i);
                 }
                 else {
@@ -168,16 +230,16 @@ const Room = ({ location }) => {
         }
         //for (var i = 0; i < userCharacters.length; i++) {
         for (var i = 0; i < userCharacters.length; i++) {
+            console.log(userCharacters);
             var index = usersinitindex[i]; //swapped the below i's with index
             s += "<div class='characterTemplate'>";
             s += "<img src='https://via.placeholder.com/100x100'></img>";
             s += "<div style={{display: 'flex', flex-direction: 'column'}}>";
             if (userCharacters[index].characterToAdd) {
-                s += "<h3>" + userCharacters[index].characterToAdd.name + "</h3>";
-                s += "<h3>" + userCharacters[index].characterToAdd.class + " " + userCharacters[index].characterToAdd.level + "</h3>";
-                s += "</div><h3> init " + userCharacters[index].characterToAdd.initiative + "</h3></div></div>";
+                s += "<h3>" + userCharacters[index].characterToAdd.newCharacter.characterId.name + "</h3>";
+                s += "<h3>" + userCharacters[index].characterToAdd.newCharacter.characterId.class + " " + userCharacters[index].characterToAdd.newCharacter.characterId.level + "</h3>";
+                s += "</div><h3> init " + userCharacters[index].characterToAdd.newCharacter.characterId.initiative + "</h3></div></div>";
             } else {
-                console.log(userCharacters[index].characterId);
                 s += "<h3>" + userCharacters[index].characterId.name + "</h3>";
                 s += "<h3>" + userCharacters[index].characterId.class + " " + userCharacters[index].characterId.level + "</h3>";
                 s += "</div><h3> init " + userCharacters[index].characterId.initiative + "</h3></div></div>";
@@ -195,6 +257,11 @@ const Room = ({ location }) => {
         setRoom(roomId);
         setHostFlag(hostFlag);
 
+        if (hostFlag == 1) {
+            document.getElementById("AddMonsterButton").style.display = "block";
+        } else {
+            document.getElementById("AddMonsterButton").style.display = "none";
+        }
         socket.emit('join', { roomId, hostFlag }, (error, user) => {
 
         });
@@ -237,7 +304,17 @@ const Room = ({ location }) => {
                 userCharacters.push(result.charactersToAdd[i]);
             }
             updateCharactersDiv();
-        })
+        });
+
+        socket.on('removeCharacter', (user) => {
+            var character = removeCharacter(user);
+            if (character) {
+                alert("successfull");
+                updateCharactersDiv();
+            } else {
+                alert("failed");
+            }
+        });
     }, [userCharacters]);
 
 

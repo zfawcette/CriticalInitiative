@@ -182,12 +182,15 @@ io.on('connection', (socket) => {
         if (user) {
             var initRoll = Math.ceil((Math.random() * 20) + 1);
             newCharacter.initiative = newCharacter.initiative + initRoll;
-            const { error, character } = addCharacter({ userId: user.userId, roomId: user.roomId, characterId: newCharacter });
+            var character = addCharacter({ userId: user.userId, roomId: user.roomId, characterId: newCharacter });
 
-            if (error) return callback(error);
-
-            socket.emit('character', { characterToAdd: newCharacter });
-            socket.broadcast.to(user.roomId).emit('character', { characterToAdd: newCharacter });
+            if (character) {
+                console.log(character);
+                socket.emit('character', { characterToAdd: character });
+                socket.broadcast.to(user.roomId).emit('character', { characterToAdd: character });
+            } else {
+                console.log("error?");
+            }
         } else {
             console.log("user not found");
         }

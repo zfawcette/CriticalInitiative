@@ -15,6 +15,13 @@ router.post('/loadCharacter', function (req, res, next) {
     });
 });
 
+router.post('/loadMonsters', function (req, res, next) {
+    res.locals.connection.query("SELECT * FROM default_monsters WHERE name = '" + req.body.name + "'", function (error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+    });
+});
+
 router.post('/checkRoomId', function (req, res, next) {
     res.locals.connection.query("SELECT * FROM rooms WHERE room_id = '" + req.body.roomId + "'", function (error, results, fields) {
         if (error) throw error;

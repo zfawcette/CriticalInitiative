@@ -2,8 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\server",
-    "\\server\\routes"
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\AddCharacter",
+    "\\src\\components\\ChangePassword"
   ],
-  "SelectedNode": "\\server\\routes\\users.js",
+  "SelectedNode": "\\src\\components\\ChangePassword\\ChangePassword.js",
   "PreviewInSolutionExplorer": false
 }
