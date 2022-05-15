@@ -1,12 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\server",
-    "\\src",
     "\\src\\components",
     "\\src\\components\\AddCharacter",
     "\\src\\components\\ChangePassword"
   ],
-  "SelectedNode": "\\src\\components\\ChangePassword\\ChangePassword.js",
+  "SelectedNode": "\\server",
   "PreviewInSolutionExplorer": false
 }
